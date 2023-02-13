@@ -1,82 +1,35 @@
 import React, { useState } from "react";
+import ExpenseForm from "../expenses/ExpenseForm";
 
 const NewExpense = ({ saveExpenseHandler }) => {
-  const [expense, setNewExpense] = useState({
-    title: "",
-    amount: "",
-    date: "",
-  });
+  const [isEditing, setIsEditingValue] = useState(false);
 
-  const titleChangeHandler = (e) => {
-    setNewExpense((previousState) => {
-      return {
-        ...previousState,
-        title: e.target.value,
-      };
-    });
+  const setEditingHandlerToTrue = () => {
+    setIsEditingValue(true);
   };
 
-  const amountChangeHandler = (e) => {
-    setNewExpense((previousState) => {
-      return {
-        ...previousState,
-        amount: e.target.value,
-      };
-    });
+  const setEditingHandlerToFalse = () => {
+    setIsEditingValue(false);
   };
 
-  const dateChangeHandler = (e) => {
-    setNewExpense((previousState) => {
-      return {
-        ...previousState,
-        date: e.target.value,
-      };
-    });
+  const clickAddExpenseHandler = () => {
+    setEditingHandlerToTrue();
   };
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    const newExpense = expense;
-    saveExpenseHandler({
-      ...newExpense,
-      id: Math.random(),
-      date: new Date(expense.date),
-    });
-    setNewExpense({ title: "", amount: "", date: "" });
-  };
-
+  if (!isEditing) {
+    return (
+      <div className="text-center mb-6">
+        <button className="btn" onClick={clickAddExpenseHandler}>
+          Add Expenses
+        </button>
+      </div>
+    );
+  }
   return (
-    <div className="flex-wrap h-auto w-full bg-purple-500 my-4 rounded-md px-5 py-5 text-start">
-      <form onSubmit={submitForm}>
-        <label> Title </label>
-        <input
-          onChange={titleChangeHandler}
-          value={expense.title}
-          className="w-full rounded-sm mb-1 text-lg pl-2 py-1"
-          required
-          type="text"
-        ></input>
-        <label> Price </label>
-        <input
-          onChange={amountChangeHandler}
-          value={expense.amount}
-          className="w-full rounded-sm mb-1 text-lg pl-2 py-1"
-          required
-          type="number"
-        ></input>
-        <label> Date </label>
-        <input
-          onChange={dateChangeHandler}
-          value={expense.date}
-          className="w-full rounded-sm mb-1 text-lg pl-2 py-1"
-          required
-          type="date"
-          min="2019-01-01"
-          max="2023-12-31"
-        ></input>
-        <button className="btn">Add Expenses</button>
-      </form>
-    </div>
+    <ExpenseForm
+      saveExpenseHandler={saveExpenseHandler}
+      setEditingHandlerToFalse={setEditingHandlerToFalse}
+    ></ExpenseForm>
   );
 };
 

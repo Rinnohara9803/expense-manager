@@ -42,7 +42,7 @@ const ExpenseItem = ({ id, title, amount, date, deleteExpenseHandler }) => {
         <DeleteIcon sx={{ color: "red" }} />
       </div>
       <div
-        className="absolute px-2 py-2 bg-slate-200 rounded-md -top-5 right-[70px]  hover:bg-slate-400"
+        className="hidden absolute px-2 py-2 bg-slate-200 rounded-md -top-5 right-[70px]  hover:bg-slate-400"
         onClick={notifyEdit}
       >
         <EditIcon color="primary" />

@@ -1,6 +1,7 @@
-import ExpenseItem from "./ExpenseItem";
 import ExpenseFilter from "./ExpenseFilter";
 import React, { useState } from "react";
+import ExpenseList from "./ExpenseList";
+import Charts from "../charts/Charts";
 
 const Expenses = ({ expenses, deleteExpenseHandler }) => {
   const [filterValue, setFilterValue] = useState(2019);
@@ -14,32 +15,17 @@ const Expenses = ({ expenses, deleteExpenseHandler }) => {
     (e) => e.date.getFullYear().toString() === filterValue
   );
 
-  let expensesContent = (
-    <h1 className="text-white text-center font-bold tracking-wide">
-      No Expenses found for {filterValue}
-    </h1>
-  );
-
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((e) => (
-      <ExpenseItem
-        key={e.id}
-        id={e.id}
-        title={e.title}
-        amount={e.amount}
-        date={e.date}
-        deleteExpenseHandler={deleteExpenseHandler}
-      ></ExpenseItem>
-    ));
-  }
-
   return (
     <div>
+      <Charts filteredExpenses={filteredExpenses}></Charts>
       <ExpenseFilter
         value={filterValue}
         handleFilterValueChange={changeFilterValue}
       ></ExpenseFilter>
-      {expensesContent}
+      <ExpenseList
+        filteredExpenses={filteredExpenses}
+        deleteExpenseHandler={deleteExpenseHandler}
+      ></ExpenseList>
     </div>
   );
 };

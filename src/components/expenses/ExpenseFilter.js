@@ -11,7 +11,7 @@ const ExpenseFilter = ({ value, handleFilterValueChange }) => {
         name="years"
         id="years"
         onChange={dropDownChangeHandler}
-        className="border-solid border-purple-800 border-2"
+        className="border-solid border-purple-800 border-2 px-3 py-1 rounded-md"
       >
         <option value="2019">2019</option>
         <option value="2020">2020</option>

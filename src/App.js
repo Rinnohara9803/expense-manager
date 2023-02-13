@@ -23,6 +23,7 @@ const App = () => {
   return (
     <div className="bg-zinc-700 px-10 sm:px-24 py-5">
       <NewExpense saveExpenseHandler={saveExpense}></NewExpense>
+
       <div className="bg-zinc-800 py-5 px-10 rounded-lg">
         <Expenses
           expenses={expenses}
