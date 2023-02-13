@@ -5,7 +5,7 @@ const ChartItem = ({ value, maxValue, label }) => {
   }
   return (
     <div className="flex-wrap text-center py-2">
-      <div className="relative h-5/6 w-5 sm:w-7 rounded-2xl bg-white flex flex-col justify-end border-black border-solid border-2">
+      <div className=" h-5/6 w-5 sm:w-7 rounded-2xl bg-white flex flex-col justify-end border-black border-solid border-2">
         <div
           className="bg-purple-500 rounded-2xl "
           style={{ height: fillHeight, transition: "all 0.3s ease-out" }}
