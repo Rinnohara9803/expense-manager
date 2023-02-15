@@ -1,9 +1,12 @@
 import ExpenseFilter from "./ExpenseFilter";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ExpenseList from "./ExpenseList";
 import Charts from "../charts/Charts";
+import ExpensesContext from "../../contexts/expenses-context";
 
-const Expenses = ({ expenses, deleteExpenseHandler }) => {
+const Expenses = (_) => {
+  const expCtx = useContext(ExpensesContext);
+
   const [filterValue, setFilterValue] = useState(2019);
 
   const changeFilterValue = (value) => {
@@ -11,7 +14,7 @@ const Expenses = ({ expenses, deleteExpenseHandler }) => {
     setFilterValue(value);
   };
 
-  const filteredExpenses = expenses.filter(
+  const filteredExpenses = expCtx.theExpenses.filter(
     (e) => e.date.getFullYear().toString() === filterValue
   );
 
@@ -22,10 +25,7 @@ const Expenses = ({ expenses, deleteExpenseHandler }) => {
         value={filterValue}
         handleFilterValueChange={changeFilterValue}
       ></ExpenseFilter>
-      <ExpenseList
-        filteredExpenses={filteredExpenses}
-        deleteExpenseHandler={deleteExpenseHandler}
-      ></ExpenseList>
+      <ExpenseList filteredExpenses={filteredExpenses}></ExpenseList>
     </div>
   );
 };

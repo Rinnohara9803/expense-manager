@@ -6,17 +6,18 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ExpenseItem = ({ id, title, amount, date, deleteExpenseHandler }) => {
   const notifyDeletion = () => {
-    toast("Expense deleted successfully.", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
+    deleteExpenseHandler(id).then(() => {
+      toast("Expense deleted successfully.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     });
-    deleteExpenseHandler(id);
   };
 
   const notifyEdit = () =>

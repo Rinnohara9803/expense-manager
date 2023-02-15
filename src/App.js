@@ -2,6 +2,7 @@ import "./App.css";
 import NewExpense from "./components/new-expenses/NewExpense";
 import React, { useState } from "react";
 import Expenses from "./components/expenses/Expenses";
+import ExpensesContext from "./contexts/expenses-context";
 
 const App = () => {
   const [expenses, setExpenses] = useState([]);
@@ -24,12 +25,16 @@ const App = () => {
     <div className="bg-zinc-700 px-10 sm:px-24 py-5">
       <NewExpense saveExpenseHandler={saveExpense}></NewExpense>
 
-      <div className="bg-zinc-800 py-5 px-10 rounded-lg">
-        <Expenses
-          expenses={expenses}
-          deleteExpenseHandler={deleteExpense}
-        ></Expenses>
-      </div>
+      <ExpensesContext.Provider
+        value={{
+          theExpenses: expenses,
+          deleteExpenseHandler: deleteExpense,
+        }}
+      >
+        <div className="bg-zinc-800 py-5 px-10 rounded-lg">
+          <Expenses></Expenses>
+        </div>
+      </ExpensesContext.Provider>
     </div>
   );
 };

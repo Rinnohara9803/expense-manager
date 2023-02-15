@@ -1,11 +1,16 @@
 import ExpenseItem from "./ExpenseItem";
+import React, { useContext } from "react";
+import ExpensesContext from "../../contexts/expenses-context";
 
-const ExpenseList = ({ filteredExpenses, deleteExpenseHandler }) => {
+const ExpenseList = ({ filteredExpenses }) => {
+  const expCtx = useContext(ExpensesContext);
 
   if (filteredExpenses.length === 0) {
-    return <h1 className="text-white text-center font-bold tracking-wide">
-    No Expenses found.
-  </h1>;
+    return (
+      <h1 className="text-white text-center font-bold tracking-wide">
+        No Expenses found.
+      </h1>
+    );
   }
   return filteredExpenses.map((e) => (
     <ExpenseItem
@@ -14,7 +19,7 @@ const ExpenseList = ({ filteredExpenses, deleteExpenseHandler }) => {
       title={e.title}
       amount={e.amount}
       date={e.date}
-      deleteExpenseHandler={deleteExpenseHandler}
+      deleteExpenseHandler={expCtx.deleteExpenseHandler}
     ></ExpenseItem>
   ));
 };
