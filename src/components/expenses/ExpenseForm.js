@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import DeleteDialog from "../dialogs/DeleteDialog";
+import Input from "../ui/inputs/Input";
 
 // const formValidationReducer = (state, action) => {
 //   console.log(action.value);
@@ -26,6 +27,9 @@ const ExpenseForm = ({ saveExpenseHandler, setEditingHandlerToFalse }) => {
     message: "e",
     value: false,
   });
+
+  const titleRef = useRef();
+  const amountRef = useRef();
 
   const [expense, setNewExpense] = useState({
     title: "",
@@ -67,22 +71,24 @@ const ExpenseForm = ({ saveExpenseHandler, setEditingHandlerToFalse }) => {
       });
       return;
     } else if (expense.title.trim().length === 0) {
-      setShowDialog((previousState) => {
-        return {
-          ...previousState,
-          value: true,
-          message: "Please fill in the title.",
-        };
-      });
+      // setShowDialog((previousState) => {
+      //   return {
+      //     ...previousState,
+      //     value: true,
+      //     message: "Please fill in the title.",
+      //   };
+      // });
+      titleRef.current.focus();
       return;
     } else if (expense.amount.trim().length === 0) {
-      setShowDialog((previousState) => {
-        return {
-          ...previousState,
-          value: true,
-          message: "Please fill in the amount.",
-        };
-      });
+      // setShowDialog((previousState) => {
+      //   return {
+      //     ...previousState,
+      //     value: true,
+      //     message: "Please fill in the amount.",
+      //   };
+      // });
+      amountRef.current.focus();
       return;
     } else if (expense.date.trim().length === 0) {
       setShowDialog((previousState) => {
@@ -127,21 +133,20 @@ const ExpenseForm = ({ saveExpenseHandler, setEditingHandlerToFalse }) => {
       )}
 
       <form onSubmit={submitForm}>
-        <label> Title </label>
-        <input
+        <Input
+          ref={titleRef}
+          label="Title"
           value={expense.title}
-          onChange={titleChangeHandler}
-          className="w-full rounded-sm mb-1 text-lg pl-2 py-1"
-          // shadow-sm focus:outline-none focus:border-2 focus:border-black focus:rounded-sm"
           type="text"
-        ></input>
-        <label> Price </label>
-        <input
+          valueChangeHandler={titleChangeHandler}
+        ></Input>
+        <Input
+          ref={amountRef}
+          label="Amount"
           value={expense.amount}
-          onChange={amountChangeHandler}
-          className="w-full rounded-sm mb-1 text-lg pl-2 py-1"
           type="number"
-        ></input>
+          valueChangeHandler={amountChangeHandler}
+        ></Input>
         <label> Date </label>
         <input
           value={expense.date}
